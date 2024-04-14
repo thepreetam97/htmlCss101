@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Enter a new topic">
+            <input type="submit" value="Add Topic">
+        </form>
+        <table id="todo-table">
+            <tr>
+                <th>Topic</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            <!-- Added Topics -->
+            <tr>
+                <td>Percentage</td>
+                <td>
+                    <div class="status">
+                        <input type="checkbox" value="Started"> Started
+                        <input type="checkbox" value="In Progress"> In Progress
+                        <input type="checkbox" value="Completed"> Completed
+                    </div>
+                </td>
+                <td><button onclick="deleteTopic(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>Profit Loss</td>
+                <td>
+                    <div class="status">
+                        <input type="checkbox" value="Started"> Started
+                        <input type="checkbox" value="In Progress"> In Progress
+                        <input type="checkbox" value="Completed"> Completed
+                    </div>
+                </td>
+                <td><button onclick="deleteTopic(this)">Delete</button></td>
+            </tr>
+            <!-- Add more topics similarly -->
+            <!-- ... -->
+            <tr>
+                <td>Graphs and Charts</td>
+                <td>
+                    <div class="status">
+                        <input type="checkbox" value="Started"> Started
+                        <input type="checkbox" value="In Progress"> In Progress
+                        <input type="checkbox" value="Completed"> Completed
+                    </div>
+                </td>
+                <td><button onclick="deleteTopic(this)">Delete</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('todo-form');
+            const input = document.getElementById('todo-input');
+            const table = document.getElementById('todo-table');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const topic = input.value.trim();
+                if (topic !== '') {
+                    addTopic(topic);
+                    input.value = '';
+                }
+            });
+
+            function addTopic(topic) {
+                const row = table.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                cell1.innerText = topic;
+                cell2.innerHTML = `
+                    <div class="status">
+                        <input type="checkbox" value="Started"> Started
+                        <input type="checkbox" value="In Progress"> In Progress
+                        <input type="checkbox" value="Completed"> Completed
+                    </div>
+                `;
+                cell3.innerHTML = `<button onclick="deleteTopic(this)">Delete</button>`;
+            }
+
+            function deleteTopic(button) {
+                const row = button.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            }
+        });
+    </script>
+</body>
+</html>
